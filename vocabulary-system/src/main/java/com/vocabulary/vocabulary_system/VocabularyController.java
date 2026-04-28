@@ -7,20 +7,29 @@ import org.springframework.web.bind.annotation.*;
 public class VocabularyController {
 
     @GetMapping("/hello")
-    public String hello()
-    {
+    public String hello() {
         return "Vocabulary System is running!";
     }
 
     @GetMapping("/search/{word}")
     public VocabularyResponse searchWord(@PathVariable String word,
-                                         @RequestParam(required=false,defaultValue = "general")String field,
-                                         @RequestParam(required=false,defaultValue = "beginner")String level)
-    {
+                                         @RequestParam(required = false, defaultValue = "general") String field,
+                                         @RequestParam(required = false, defaultValue = "beginner") String level) {
         String message = "Searching for: " + word +
                 " in field: " + field +
                 " at level: " + level;
 
-        return new VocabularyResponse(word,message);
+        return new VocabularyResponse(word, message);
     }
+
+    @PostMapping("/search")
+    public VocabularyResponse searchWordPost(@RequestBody VocabularyRequest request)
+    {
+        String message = "Searching for: " + request.getWord() +
+                " in field: " + request.getField() +
+                " at level: " + request.getLevel();
+        return new VocabularyResponse(request.getWord(), message);
+    }
+
+
 }
