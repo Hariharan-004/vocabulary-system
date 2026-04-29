@@ -6,6 +6,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/vocabulary")
 public class VocabularyController {
 
+    private final VocabularyService vocabularyService;
+
+    public VocabularyController(VocabularyService vocabularyService)
+    {
+        this.vocabularyService=vocabularyService;
+    }
+
     @GetMapping("/hello")
     public String hello() {
         return "Vocabulary System is running!";
@@ -25,10 +32,11 @@ public class VocabularyController {
     @PostMapping("/search")
     public VocabularyResponse searchWordPost(@RequestBody VocabularyRequest request)
     {
-        String message = "Searching for: " + request.getWord() +
-                " in field: " + request.getField() +
-                " at level: " + request.getLevel();
-        return new VocabularyResponse(request.getWord(), message);
+        return vocabularyService.search(
+                request.getWord(),
+                request.getField(),
+                request.getLevel()
+        );
     }
 
 
