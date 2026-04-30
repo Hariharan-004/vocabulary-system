@@ -22,11 +22,8 @@ public class VocabularyController {
     public VocabularyResponse searchWord(@PathVariable String word,
                                          @RequestParam(required = false, defaultValue = "general") String field,
                                          @RequestParam(required = false, defaultValue = "beginner") String level) {
-        String message = "Searching for: " + word +
-                " in field: " + field +
-                " at level: " + level;
 
-        return new VocabularyResponse(word, message);
+        return vocabularyService.search(word, field, level);
     }
 
     @PostMapping("/search")
