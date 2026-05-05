@@ -18,6 +18,16 @@ public class VocabularyService {
     public VocabularyResponse search(String word,
                                      String field,
                                      String level) {
+
+        if (word == null || word.trim().isEmpty()) {
+            throw new WordNotFoundException("Word cannot be empty");
+        }
+
+        if (!word.matches("[a-zA-Z]+")) {
+            throw new WordNotFoundException(
+                    "Invalid word: " + word + ". Only letters allowed"
+            );
+        }
         Optional<Word> existing = wordRepository.findByWordAndField(word, field);
 
         if (existing.isPresent())
