@@ -13,7 +13,7 @@ public class ErrorResponse {
         this.error=error;
         this.status=status;
         this.timestamp = LocalDateTime.now(); // ← correct
-         }
+    }
     public String getError()
     {
         return error;

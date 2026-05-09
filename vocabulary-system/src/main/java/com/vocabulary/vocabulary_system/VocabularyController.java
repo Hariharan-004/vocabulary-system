@@ -1,5 +1,6 @@
 package com.vocabulary.vocabulary_system;
 
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

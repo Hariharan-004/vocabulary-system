@@ -20,13 +20,12 @@ public class VocabularyService {
                                      String level) {
 
         if (word == null || word.trim().isEmpty()) {
-            throw new WordNotFoundException("Word cannot be empty");
+            throw new InvalidWordException("Word cannot be empty");
         }
 
         if (!word.matches("[a-zA-Z]+")) {
-            throw new WordNotFoundException(
-                    "Invalid word: " + word + ". Only letters allowed"
-            );
+            throw new InvalidWordException("Invalid word: " + word + ". Only letters allowed");
+
         }
         Optional<Word> existing = wordRepository.findByWordAndField(word, field);
 

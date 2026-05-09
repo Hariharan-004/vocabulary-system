@@ -1,7 +1,13 @@
 package com.vocabulary.vocabulary_system;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+
 public class VocabularyRequest {
 
+
+    @NotBlank(message="Word cannot be empty")
+    @Pattern(regexp="[a-zA-Z]+",message="Only letters allowed,no numbers or special characters")
     private String word;
     private String field;
     private String level;
