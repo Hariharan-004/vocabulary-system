@@ -8,10 +8,13 @@ import java.util.Optional;
 public class VocabularyService {
 
     private final WordRepository wordRepository;
+    private final GeminiService geminiService;
 
-    public VocabularyService(WordRepository wordRepository)
+
+    public VocabularyService(WordRepository wordRepository,GeminiService geminiService)
     {
         this.wordRepository=wordRepository;
+        this.geminiService=geminiService;
     }
 
 
@@ -37,8 +40,8 @@ public class VocabularyService {
                     "Found in DB: " + found.getDefinition()
             );
         }
-        String definition = "Definition of " + word +
-                " in " + field + " context";
+        String definition = geminiService.getDefinition(word, field, level);
+
 
         Word newWord = new Word(word, field, level, definition);
         wordRepository.save(newWord);

@@ -40,7 +40,7 @@ public class GeminiService {
 
     private String buildPrompt(String word,String field,String level)
     {
-        return String.format("Explain the word '%s' in the context of '%s"+
+        return String.format("Explain the word '%s' in the context of '%s "+
                 "at %s level. Give a clear definition and "+
                 "2 example sentences.Keep it concise.",word,field,level);
 
@@ -61,18 +61,31 @@ public class GeminiService {
                 }            
                 """.formatted(prompt.replace("\"","'"));
     }
-    private String parseResponse(String  responseBody)
-    {
-        try{
-            int start=responseBody.indexOf("\"text\":");
-            if(start==-1)
-                return "Could not parse response";
-            start=responseBody.indexOf("\"",start+7)+1;
-            int end=responseBody.indexOf("\"",start);
-            return responseBody.substring(start,end);
-        }
-        catch (Exception e)
-        {
+    private String parseResponse(String responseBody) {
+        try {
+            System.out.println("GEMINI RESPONSE: " + responseBody);
+
+            int textIndex = responseBody.indexOf("\"text\":");
+            if (textIndex == -1) return "Could not get definition";
+
+            int quoteStart = responseBody.indexOf("\"", textIndex + 7) + 1;
+            int quoteEnd = responseBody.indexOf("\"", quoteStart);
+
+            while (quoteEnd > 0 && responseBody.charAt(quoteEnd - 1) == '\\') {
+                quoteEnd = responseBody.indexOf("\"", quoteEnd + 1);
+            }
+
+            if (quoteStart <= 0 || quoteEnd <= 0) {
+                return "Could not parse definition";
+            }
+
+            return responseBody.substring(quoteStart, quoteEnd)
+                    .replace("\\n", "\n")
+                    .replace("\\\"", "\"")
+                    .replace("\\'", "'");
+
+        } catch (Exception e) {
+            System.out.println("Parse error: " + e.getMessage());
             return "Could not parse response";
         }
     }

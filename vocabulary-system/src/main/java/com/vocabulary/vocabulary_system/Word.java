@@ -15,6 +15,7 @@ public class Word {
     private String word;
     private String field;
     private String level;
+    @Column(columnDefinition = "TEXT")
     private String definition;
 
     private LocalDateTime createdAt;
