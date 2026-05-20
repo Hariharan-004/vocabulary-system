@@ -30,7 +30,7 @@ public class VocabularyService {
             throw new InvalidWordException("Invalid word: " + word + ". Only letters allowed");
 
         }
-        Optional<Word> existing = wordRepository.findByWordAndField(word, field);
+        Optional<Word> existing = wordRepository.findByWordAndField(word,field);
 
         if (existing.isPresent())
         {

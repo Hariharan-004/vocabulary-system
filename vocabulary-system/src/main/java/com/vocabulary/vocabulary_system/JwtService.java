@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.security.Key;
 import java.util.Date;
 
+@Service
 public class JwtService {
 
     private static final String SECRET_KEY="vocabulary-system-secret-key-must-be-very-long-for-security";
