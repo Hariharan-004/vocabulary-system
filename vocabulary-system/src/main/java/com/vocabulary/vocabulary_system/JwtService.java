@@ -4,16 +4,16 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import java.security.Key;
 import java.util.Date;
 
 @Service
 public class JwtService {
 
-    private static final String SECRET_KEY="vocabulary-system-secret-key-must-be-very-long-for-security";
-
+    @Value("${jwt.secret.key}")
+    private String SECRET_KEY;
     private static final long EXPIRATION_TIME=86400000;
 
     private Key getSigningKey()
