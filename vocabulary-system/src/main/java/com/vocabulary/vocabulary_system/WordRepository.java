@@ -6,6 +6,6 @@ import java.util.Optional;
 
 public interface WordRepository extends JpaRepository<Word,Long> {
 
-    Optional<Word> findByWordAndField(String word, String field);
+    Optional<Word> findByWordAndFieldAndLevel(String word, String field,String level);
 
 }
